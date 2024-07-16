@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-class Banner extends Equatable {
+class Banners extends Equatable {
   final String? image;
 
-  const Banner({this.image});
+  const Banners({this.image});
 
-  factory Banner.fromJson(Map<String, dynamic> json) => Banner(
+  factory Banners.fromJson(Map<String, dynamic> json) => Banners(
         image: json['image'] as String?,
       );
 

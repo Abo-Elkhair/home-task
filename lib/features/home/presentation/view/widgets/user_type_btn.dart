@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task3/core/utils/app_colors.dart';
+import 'package:task3/core/utilities/res/app_colors.dart';
 
 class BtnModel {
   final String btnName;

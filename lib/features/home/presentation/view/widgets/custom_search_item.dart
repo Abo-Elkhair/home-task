@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task3/core/utils/app_colors.dart';
-import 'package:task3/core/utils/app_images.dart';
+import 'package:task3/core/utilities/res/app_colors.dart';
+import 'package:task3/core/utilities/res/app_images.dart';
 
 class CustomSearchItem extends StatelessWidget {
   const CustomSearchItem({super.key});

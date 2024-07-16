@@ -1,19 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:task3/core/utils/app_colors.dart';
-import 'package:task3/core/utils/app_constants.dart';
-import 'package:task3/core/widgets/app_circular_progress_indicator.dart';
+
+import 'package:task3/core/customs/custom_loading.dart';
+import 'package:task3/core/utilities/res/app_colors.dart';
+import 'package:task3/core/utilities/res/app_constants.dart';
+import 'package:task3/features/home/data/home_model/adv.dart';
+import 'package:task3/features/home/presentation/home_controller.dart';
 import 'package:task3/features/home/presentation/view/widgets/reserved_or_display_more_btn.dart';
-import 'package:task3/features/home/presentation/view_model/home_cubit.dart';
 
 class AdvsSliverListBuilder extends StatelessWidget {
-  const AdvsSliverListBuilder({super.key, required this.cubit});
-  final HomeCubit cubit;
+  const AdvsSliverListBuilder({super.key, required this.advList});
+  final List<Adv> advList;
   @override
   Widget build(BuildContext context) {
     return SliverList.separated(
-      itemCount: cubit.homeModel?.data?.advs?.length ?? 0,
+      itemCount: advList.length,
       itemBuilder: (context, i) => Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -31,8 +33,7 @@ class AdvsSliverListBuilder extends StatelessWidget {
                   child: CachedNetworkImage(
                     height: 125,
                     width: double.infinity,
-                    imageUrl:
-                        cubit.homeModel?.data?.advs?[i].images?[0].image ?? '',
+                    imageUrl: advList[i].images?[0].image ?? '',
                     placeholder: (context, url) =>
                         const Center(child: AppCircularProgressIndicator()),
                     errorWidget: (context, url, error) =>
@@ -53,7 +54,7 @@ class AdvsSliverListBuilder extends StatelessWidget {
                         10,
                       ),
                       child: Icon(
-                        cubit.homeModel?.data?.advs?[i].isFav ?? false
+                        advList[i].isFav ?? false
                             ? CupertinoIcons.heart_fill
                             : CupertinoIcons.heart,
                         color: AppColors.lightBlue,
@@ -82,7 +83,7 @@ class AdvsSliverListBuilder extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          cubit.homeModel?.data?.advs?[i].category?.name ?? '',
+                          advList[i].category?.name ?? '',
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -106,8 +107,7 @@ class AdvsSliverListBuilder extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          cubit.homeModel?.data?.advs?[i].advertiserTypeText ??
-                              '',
+                          advList[i].advertiserTypeText ?? '',
                           style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -134,9 +134,8 @@ class AdvsSliverListBuilder extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            cubit.daysSince(
-                                cubit.homeModel?.data?.advs?[i].createdAt ??
-                                    '0'),
+                            HomeController()
+                                .daysSince(advList[i].createdAt ?? '0'),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
@@ -147,7 +146,7 @@ class AdvsSliverListBuilder extends StatelessWidget {
                           ),
                           Expanded(
                             child: Text(
-                              cubit.homeModel?.data?.advs?[i].title ?? '',
+                              advList[i].title ?? '',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.right,
@@ -166,7 +165,7 @@ class AdvsSliverListBuilder extends StatelessWidget {
                           bottom: 12,
                         ),
                         child: Text(
-                          cubit.homeModel?.data?.advs?[i].addressDetails ?? '',
+                          advList[i].addressDetails ?? '',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: const TextStyle(
@@ -181,7 +180,7 @@ class AdvsSliverListBuilder extends StatelessWidget {
                           Directionality(
                             textDirection: TextDirection.rtl,
                             child: Text(
-                              '${cubit.homeModel?.data?.advs?[i].price} ر.س',
+                              '${advList[i].price} ر.س',
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -191,10 +190,9 @@ class AdvsSliverListBuilder extends StatelessWidget {
                           ),
                           // const Spacer(),
                           ...List.generate(
-                            cubit.homeModel!.data!.advs![i].options!.length > 2
+                            advList[i].options!.length > 2
                                 ? 2
-                                : cubit
-                                    .homeModel!.data!.advs![i].options!.length,
+                                : advList[i].options!.length,
                             (index) => Row(
                               children: [
                                 Container(
@@ -203,8 +201,9 @@ class AdvsSliverListBuilder extends StatelessWidget {
                                   ),
                                   // if url is ' ' or error it give exception rather than put place holder or handle error , also when put tap on horizontal list
                                   child: CachedNetworkImage(
-                                    imageUrl: cubit.homeModel?.data?.advs?[i]
-                                            .options?[index].image ??
+                                    imageUrl: advList[i]
+                                            .options?[index]
+                                            .image ??
                                         AppConstants.testNetworkImage, // ' '
                                     errorWidget: (context, url, error) =>
                                         const Icon(Icons.error),
@@ -215,9 +214,7 @@ class AdvsSliverListBuilder extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  cubit.homeModel?.data?.advs?[i]
-                                          .options?[index].value ??
-                                      '',
+                                  advList[i].options?[index].value ?? '',
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey,
@@ -228,7 +225,7 @@ class AdvsSliverListBuilder extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            "${cubit.homeModel?.data?.advs?[i].totalArea} م2",
+                            "${advList[i].totalArea} م2",
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,

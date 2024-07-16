@@ -5,7 +5,7 @@ import 'banner.dart';
 import 'user_type.dart';
 
 class HomeModelData extends Equatable {
-  final List<Banner>? banners;
+  final List<Banners>? banners;
   final List<UserType>? userTypes;
   final List<Adv>? advs;
 
@@ -13,7 +13,7 @@ class HomeModelData extends Equatable {
 
   factory HomeModelData.fromJson(Map<String, dynamic> json) => HomeModelData(
         banners: (json['banners'] as List<dynamic>?)
-            ?.map((e) => Banner.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => Banners.fromJson(e as Map<String, dynamic>))
             .toList(),
         userTypes: (json['user_types'] as List<dynamic>?)
             ?.map((e) => UserType.fromJson(e as Map<String, dynamic>))
