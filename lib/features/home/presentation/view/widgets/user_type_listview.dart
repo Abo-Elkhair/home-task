@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:task3/features/home/data/home_model/user_type.dart';
 import 'package:task3/features/home/presentation/view/widgets/user_type_btn.dart';
-import 'package:task3/features/home/presentation/view_model/home_cubit.dart';
 
 class UserTypeListview extends StatelessWidget {
   const UserTypeListview({
     super.key,
-    required this.cubit,
+    required this.listUserType,
   });
 
-  final HomeCubit cubit;
+  final List<UserType> listUserType;
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,11 @@ class UserTypeListview extends StatelessWidget {
       height: 40.0,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: cubit.homeModel?.data?.userTypes?.length ?? 0,
+        itemCount: listUserType.length,
         itemBuilder: (BuildContext context, int index) {
           return UserTypeBtn(
             btnModel: BtnModel(
-              btnName: cubit.homeModel?.data?.userTypes?[index].name ?? ' ',
+              btnName: listUserType[index].name ?? ' ',
               btnIndex: index,
             ),
           );

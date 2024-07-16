@@ -1,24 +1,24 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:task3/core/utils/app_colors.dart';
-import 'package:task3/features/home/presentation/view_model/home_cubit.dart';
+import 'package:task3/core/utilities/res/app_colors.dart';
+import 'package:task3/features/home/data/home_model/banner.dart';
+import 'package:task3/features/home/presentation/home_controller.dart';
 
 class DotsIndicatorItem extends StatelessWidget {
   const DotsIndicatorItem({
     super.key,
-    required this.cubit,
+    required this.banners,
   });
-
-  final HomeCubit cubit;
+  final List<Banners> banners;
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: cubit.currentIndex,
+      valueListenable: HomeController().currentIndex,
       builder: (context, value, child) => Align(
         child: DotsIndicator(
           onTap: (index) {},
-          dotsCount: cubit.homeModel?.data?.banners?.length ?? 0,
+          dotsCount: banners.length,
           position: value,
           decorator: DotsDecorator(
             activeColor: AppColors.lightBlue,

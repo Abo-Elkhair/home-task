@@ -1,12 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:task3/core/utils/app_colors.dart';
-import 'package:task3/features/home/presentation/view_model/home_cubit.dart';
+import 'package:task3/core/utilities/res/app_colors.dart';
+import 'package:task3/features/home/data/home_model/banner.dart';
+import 'package:task3/features/home/presentation/home_controller.dart';
 
 class SwiperItem extends StatelessWidget {
-  const SwiperItem({super.key, required this.cubit});
-  final HomeCubit cubit;
+  const SwiperItem(
+      {super.key, required this.swiperController, required this.banners});
+  final SwiperController swiperController;
+  final List<Banners> banners;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -15,9 +18,9 @@ class SwiperItem extends StatelessWidget {
           height: 200,
           width: double.infinity,
           child: Swiper(
-            controller: cubit.swiperController,
-            itemCount: cubit.homeModel?.data?.banners?.length ?? 0,
-            onIndexChanged: cubit.onIndexChanged,
+            controller: swiperController,
+            itemCount: banners.length,
+            onIndexChanged: HomeController().onIndexChanged,
             autoplay: true,
             loop: true,
             itemBuilder: (BuildContext context, int index) {
@@ -26,8 +29,7 @@ class SwiperItem extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(30.0),
                     child: CachedNetworkImage(
-                      imageUrl:
-                          cubit.homeModel?.data?.banners?[index].image ?? "",
+                      imageUrl: banners[index].image ?? "",
                       fit: BoxFit.cover,
                     ),
                   ),
