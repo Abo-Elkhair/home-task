@@ -39,4 +39,13 @@ class HomeController {
     final difference = now.difference(date);
     return 'منذ ${difference.inDays} أيام';
   }
+
+  /// This function is okay, but we can also use extension here / public class like
+  /// utils.
+  /// example:
+  /// extension DateDifference on DateTime {
+  ///  String daysSince(DateTime date) {.....}
+  ///}
+  /// and then we can use it like this:
+  /// final difference = now.daysSince(date);
 }

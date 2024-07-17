@@ -5,7 +5,7 @@
 // import 'package:task3/core/utilities/utilities/utils_functions/ApiNames.dart';
 // import 'package:task3/features/home/data/home_model/home_model.dart';
 // import 'package:task3/features/home/presentation/view_model/home_states.dart';
-
+/// Since we don't need this class or its State class we can delete [view_model] folder.
 // class HomeCubit extends Cubit<HomeStates> {
 //   HomeCubit() : super(HomeInitialState());
 //   static HomeCubit get(context) => BlocProvider.of(context);

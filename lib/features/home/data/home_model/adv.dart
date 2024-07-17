@@ -72,6 +72,8 @@ class Adv extends Equatable {
   });
 
   factory Adv.fromJson(Map<String, dynamic> json) => Adv(
+        /// It's better to use [json['product_num'] ?? ''] to avoid null values.
+        /// then you don't need to make it nullable in the class.
         productNum: json['product_num'] as String?,
         id: json['id'] as int?,
         mainImage: json['main_image'] as String?,
