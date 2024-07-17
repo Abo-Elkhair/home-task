@@ -4,6 +4,8 @@ import 'package:task3/core/blocs/generic_cubit/generic_cubit.dart';
 import 'package:task3/core/utilities/utilities/http/home_data_source.dart';
 import 'package:task3/features/home/data/home_model/home_model_data.dart';
 
+/// Good choice using singleton pattern here.
+/// We could also added this file to the [presentation] folder adding [home_imports.dart] file to import all the necessary files..
 class HomeController {
   HomeController._() {
     initData();
